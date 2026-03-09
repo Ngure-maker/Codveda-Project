@@ -123,3 +123,7 @@ SIMPLE_JWT = {
 
 default_cors = 'http://localhost:3000,http://127.0.0.1:3000,http://localhost:3001,http://127.0.0.1:3001'
 CORS_ALLOWED_ORIGINS = [origin.strip() for origin in os.getenv('CORS_ALLOWED_ORIGINS', default_cors).split(',') if origin.strip()]
+default_cors_regexes = r'^https://.*\.vercel\.app$'
+CORS_ALLOWED_ORIGIN_REGEXES = [
+    regex.strip() for regex in os.getenv('CORS_ALLOWED_ORIGIN_REGEXES', default_cors_regexes).split(',') if regex.strip()
+]
