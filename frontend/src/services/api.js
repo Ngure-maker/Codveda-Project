@@ -1,8 +1,12 @@
 import axios from 'axios';
 
 const resolveApiBaseUrl = () => {
-  if (process.env.REACT_APP_API_BASE_URL) {
-    return process.env.REACT_APP_API_BASE_URL;
+  const envBase = process.env.REACT_APP_API_BASE_URL;
+  if (envBase) {
+    if (envBase.startsWith('ttps://')) {
+      return `h${envBase}`;
+    }
+    return envBase;
   }
 
   if (typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app')) {
