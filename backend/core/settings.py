@@ -2,6 +2,8 @@ import os
 from datetime import timedelta
 from pathlib import Path
 
+import dj_database_url
+
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'django-insecure-change-this-secret-key')
@@ -53,16 +55,27 @@ TEMPLATES = [
 WSGI_APPLICATION = 'core.wsgi.application'
 ASGI_APPLICATION = 'core.asgi.application'
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('POSTGRES_DB', 'Codveda_db'),
-        'USER': os.getenv('POSTGRES_USER', 'postgres'),
-        'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'codveda123'),
-        'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
-        'PORT': os.getenv('POSTGRES_PORT', '5432'),
+DATABASE_URL = os.getenv('DATABASE_URL')
+
+if DATABASE_URL:
+    DATABASES = {
+        'default': dj_database_url.parse(
+            DATABASE_URL,
+            conn_max_age=600,
+            ssl_require=os.getenv('DB_SSL_REQUIRE', 'True').lower() == 'true',
+        )
     }
-}
+else:
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': os.getenv('POSTGRES_DB', 'Codveda_db'),
+            'USER': os.getenv('POSTGRES_USER', 'postgres'),
+            'PASSWORD': os.getenv('POSTGRES_PASSWORD', 'codveda123'),
+            'HOST': os.getenv('POSTGRES_HOST', 'localhost'),
+            'PORT': os.getenv('POSTGRES_PORT', '5432'),
+        }
+    }
 
 AUTH_PASSWORD_VALIDATORS = [
     {
