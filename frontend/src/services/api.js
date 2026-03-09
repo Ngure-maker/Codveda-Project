@@ -1,8 +1,18 @@
 import axios from 'axios';
 
-const API_BASE_URL = (
-  process.env.REACT_APP_API_BASE_URL || 'http://127.0.0.1:8001/api'
-).replace(/\/$/, '');
+const resolveApiBaseUrl = () => {
+  if (process.env.REACT_APP_API_BASE_URL) {
+    return process.env.REACT_APP_API_BASE_URL;
+  }
+
+  if (typeof window !== 'undefined' && window.location.hostname.endsWith('.vercel.app')) {
+    return 'https://codveda-w698.onrender.com/api';
+  }
+
+  return 'http://127.0.0.1:8001/api';
+};
+
+const API_BASE_URL = resolveApiBaseUrl().replace(/\/$/, '');
 
 const api = axios.create({
   baseURL: API_BASE_URL,
