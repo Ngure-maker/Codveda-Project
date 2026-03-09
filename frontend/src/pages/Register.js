@@ -18,6 +18,10 @@ export default function Register() {
       setSuccess('Registration successful. Redirecting to login...');
       setTimeout(() => navigate('/login'), 1200);
     } catch (err) {
+      if (!err.response) {
+        setError('Cannot reach backend API. Check REACT_APP_API_BASE_URL on Vercel.');
+        return;
+      }
       const detail = err.response?.data;
       if (typeof detail === 'object') {
         const firstError = Object.values(detail)[0];

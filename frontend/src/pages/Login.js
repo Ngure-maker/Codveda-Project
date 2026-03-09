@@ -17,6 +17,10 @@ export default function Login() {
       localStorage.setItem('refreshToken', response.data.refresh);
       navigate('/dashboard');
     } catch (err) {
+      if (!err.response) {
+        setError('Cannot reach backend API. Check REACT_APP_API_BASE_URL on Vercel.');
+        return;
+      }
       setError(err.response?.data?.detail || 'Invalid credentials.');
     }
   };
