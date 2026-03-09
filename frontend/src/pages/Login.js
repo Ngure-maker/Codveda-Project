@@ -24,6 +24,7 @@ export default function Login() {
   return (
     <section className="card auth-card">
       <h2>Login</h2>
+      <p className="muted">Welcome back. Pick up where you left off.</p>
       <form onSubmit={handleSubmit} className="auth-form">
         <label>
           Username
@@ -44,7 +45,7 @@ export default function Login() {
           />
         </label>
         {error ? <span className="error">{error}</span> : null}
-        <button type="submit">Sign In</button>
+        <button type="submit">Continue</button>
       </form>
       <p>
         Need an account? <Link to="/register">Register</Link>

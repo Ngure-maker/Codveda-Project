@@ -31,6 +31,7 @@ export default function Register() {
   return (
     <section className="card auth-card">
       <h2>Register</h2>
+      <p className="muted">Create your space and start planning with clarity.</p>
       <form onSubmit={handleSubmit} className="auth-form">
         <label>
           Username
@@ -62,7 +63,7 @@ export default function Register() {
         </label>
         {error ? <span className="error">{error}</span> : null}
         {success ? <span className="success">{success}</span> : null}
-        <button type="submit">Create Account</button>
+        <button type="submit">Create my account</button>
       </form>
       <p>
         Already have an account? <Link to="/login">Login</Link>

@@ -7,6 +7,7 @@ import Dashboard from './pages/Dashboard';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Footer from './components/Footer';
 
 function ProtectedRoute({ children }) {
   const token = localStorage.getItem('accessToken');
@@ -35,6 +36,7 @@ export default function App() {
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </main>
+      <Footer />
     </div>
   );
 }
